@@ -42,13 +42,14 @@ type Recomendacao struct {
 }
 
 var (
-	SMTPSERVER    = os.Getenv("SMTPSERVER")
-	SMTPPORT      = os.Getenv("SMTPPORT")
-	SMTPUSER      = os.Getenv("SMTPUSER")
-	SMTPPASS      = os.Getenv("SMTPPASS")
-	CAPTCHASECRET = os.Getenv("CAPTCHASECRET")
-	DSN           = os.Getenv("DSN")
-	SITE          = os.Getenv("SITE")
+	SMTPSERVER     = os.Getenv("SMTPSERVER")
+	SMTPPORT       = os.Getenv("SMTPPORT")
+	SMTPUSER       = os.Getenv("SMTPUSER")
+	SMTPPASS       = os.Getenv("SMTPPASS")
+	CAPTCHASECRET  = os.Getenv("CAPTCHASECRET")
+	DSN            = os.Getenv("DSN")
+	SITE           = os.Getenv("SITE")
+	CAPTCHASITEKEY = os.Getenv("SITEKEY")
 )
 
 func sendEmail(name, from, to, subject, body string) error {
@@ -177,7 +178,8 @@ func main() {
 		log.Println("code Recomendation: " + codRec)
 		// Renderiza o template "index.html" com codRec preenchido
 		c.HTML(http.StatusOK, "index.html", gin.H{
-			"CodRec": codRec,
+			"CodRec":  codRec,
+			"sitekey": CAPTCHASITEKEY,
 		})
 	})
 
