@@ -49,7 +49,7 @@ var (
 	CAPTCHASECRET  = os.Getenv("CAPTCHASECRET")
 	DSN            = os.Getenv("DSN")
 	SITE           = os.Getenv("SITE")
-	CAPTCHASITEKEY = os.Getenv("SITEKEY")
+	CAPTCHASITEKEY = os.Getenv("CAPTCHASITEKEY")
 )
 
 func sendEmail(name, from, to, subject, body string) error {
