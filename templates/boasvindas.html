@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Bem-vindo à Guerra Academy</title>
+    <style>
+        body {
+            font-family: Roboto, 'Helvetica Neue', Helvetica, Arial, sans-serif;
+            line-height: 1.6;
+            color: #333333;
+        }
+        .container {
+            max-width: 650px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #ffffff;
+        }
+        .button {
+            display: block;
+            margin: 0 auto;
+            padding: 12px 30px;
+            font-size: 18px;
+            background-color: #ffffff;
+            color: #06BBCC;
+            text-align: center;
+            text-decoration: none;
+            border: 2px solid #06BBCC;
+            border-radius: 3px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <p>Bem vindo <strong>{{.Nome}}</strong>!</p>
+        <p>Seu cadastro na <strong>Trilha DevOps</strong> está confirmado.</p>
+        <p>O evento vai acontecer em breve! Fique de olho nas notificações!</strong>.</p>
+        <p>Entre no canal do WhatsApp para receber notificações de nosso evento.</p>
+        <a class="button" href="https://chat.whatsapp.com/IzUJs4SC7aZDfdmZXhsDKO" target="_blank">Entrar no Grupo do WhatsApp</a>
+        <hr>
+        <p>Fique atento às notificações, pois brindes serão liberados na semana do evento. Livros e cursos serão sorteados ao vivo!</p>
+        <p>Obrigado!<br>Glaucio Guerra - Guerra Academy</p>
+        <p>Para não receber mais nossos emails, <a href="https://{{.site}}/unsubscribe?email={{.Email}}">clique aqui</a>.</p>
+    </div>
+</body>
+</html>

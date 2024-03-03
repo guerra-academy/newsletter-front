@@ -1,0 +1,4 @@
+*.sh
+*.log
+*.db
+.DS_Store

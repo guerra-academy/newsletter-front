@@ -1,0 +1,35 @@
+# Documentação
+
+## Criação de serviço
+
+```
+sudo vi /etc/systemd/system/guerraacademy.service
+
+```
+
+* Conteúdo do serviço:
+```
+[Unit]
+Description=Guerra Academy Backend
+After=network.target
+
+[Service]
+ExecStart=/opt/landing-backend/guerraacademy
+WorkingDirectory=/opt/landing-backend
+Restart=always
+User=root
+
+[Install]
+WantedBy=multi-user.target
+```
+
+
+```
+sudo systemctl daemon-reload
+sudo systemctl start guerraacademy
+sudo systemctl status guerraacademy
+sudo systemctl stop guerraacademy
+sudo systemctl restart guerraacademy
+sudo systemctl enable guerraacademy
+```
+
