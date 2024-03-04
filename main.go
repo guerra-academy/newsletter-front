@@ -142,13 +142,8 @@ func gerarUUID() string {
 }
 
 func main() {
-	logFile, err := os.OpenFile("guerraacademy.log", os.O_CREATE|os.O_WRONLY|os.O_APPEND, 0666)
-	if err != nil {
-		fmt.Println("Erro ao abrir o arquivo de log:", err)
-		return
-	}
-	defer logFile.Close()
-	log.SetOutput(logFile)
+
+	log.SetOutput(os.Stdout)
 
 	// Configuração do roteador do Gin
 	router := gin.Default()
@@ -157,6 +152,7 @@ func main() {
 
 	router.Use(corsMiddleware())
 	// Conexão com o banco de dados SQLite usando o GORM
+	log.Println("abrir conexao com banco postgres...")
 	db, err := gorm.Open("postgres", DSN)
 	if err != nil {
 		log.Fatal(err)
