@@ -25,6 +25,6 @@ export async function getUsers() {
     method: 'GET',
   };
 
-  const response = await performRequestWithRetry(`${apiUrl}/users`, options);
+  const response = await performRequestWithRetry(`${apiUrl}`, options);
   return response as AxiosResponse<User[]>;
 }
