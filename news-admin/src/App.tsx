@@ -6,7 +6,7 @@ import {
   EditGuesser,
   ShowGuesser,
 } from "react-admin";
-import { dataProvider } from "./dataProvider";
+import dataProvider  from "./dataProvider";
 import { useAuthContext } from "@asgardeo/auth-react";
 import LoginBox from './LoginBox'; // Certifique-se de que o caminho está correto
 
@@ -22,7 +22,7 @@ const App: React.FC = () => {
   return (
     <Admin dataProvider={dataProvider}>
       <Resource
-      name="usuarios"
+      name="users"
       list={ListGuesser}
       edit={EditGuesser}
       show={ShowGuesser}
