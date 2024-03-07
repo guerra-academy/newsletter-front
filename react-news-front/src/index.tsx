@@ -104,7 +104,7 @@ export default function App() {
   }
 
   return (
-    <div className="container px-4 mx-auto flex flex-col flex-grow">
+    <div className="header-2 w-screen min-h-screen">
       <nav className="w-full py-8">
         <div className="container px-4 mx-auto md:flex md:items-center">
           <div className="flex justify-between items-center">
