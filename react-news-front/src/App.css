@@ -1,4 +1,4 @@
-#root {
+#root{
   height: 100vh;
   display: flex;
   flex-direction: column;
@@ -16,6 +16,7 @@
 .header-2 {
   flex: 1; 
   overflow: auto;
+  height: 100vh;
 }
 
 .tab-panels {

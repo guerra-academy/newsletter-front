@@ -141,34 +141,38 @@ export default function App() {
       </nav>
 
       <div className="container px-4 mx-auto flex flex-col flex-grow">
-  <div className="w-full max-w-lg mx-auto py-8">
-    <div className="flex justify-between">
-      <h1 className="text-4xl text-white font-bold">Newsletter Users</h1>
-      {/* Botões e outros elementos */}
-    </div>
-    {isLoading ? (
-      <p>Loading users...</p>
-    ) : (
-      <div className="user-list-container bg-white rounded-xl p-3">
-        {userList && userList.map((user) => (
-          <div key={user.id} className="user-item flex justify-between p-3 border-b border-gray-200">
-            <div>
-              <h3 className="text-sm font-medium">{user.nome}</h3>
-              <p className="text-xs text-gray-500">{user.email}</p>
-              {/* Outros detalhes do usuário */}
-            </div>
-            <button
-              onClick={() => handleDelete(user.id.toString())}
-              className="text-red-500 hover:text-red-700"
-            >
-              Delete
-            </button>
+        <div className="w-full max-w-lg mx-auto py-8">
+          <div className="flex justify-between">
+            <h1 className="text-4xl text-white font-bold">Newsletter Users</h1>
+            {/* Botões e outros elementos */}
           </div>
-        ))}
+          {isLoading ? (
+            <p>Loading users...</p>
+          ) : (
+            <div className="user-list-container bg-white">
+              {userList &&
+                userList.map((user) => (
+                  <div
+                    key={user.id}
+                    className="user-item flex justify-between p-3 border-b border-gray-200"
+                  >
+                    <div>
+                      <h3 className="text-sm font-medium">{user.nome}</h3>
+                      <p className="text-xs text-gray-500">{user.email}</p>
+                      {/* Outros detalhes do usuário */}
+                    </div>
+                    <button
+                      onClick={() => handleDelete(user.id.toString())}
+                      className="text-red-500 hover:text-red-700"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                ))}
+            </div>
+          )}
+        </div>
       </div>
-    )}
-  </div>
-</div>
     </div>
   );
 }
