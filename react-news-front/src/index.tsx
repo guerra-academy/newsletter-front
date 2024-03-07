@@ -16,7 +16,8 @@ export function classNames(...classes: string[]) {
 }
 
 export default function App() {
-  const [readList, setUserList] = useState<User[] | null>(null);
+
+  const [userList, setUserList] = useState<User[] | null>(null);
   const [isAddItemOpen, setIsAddItemOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
@@ -151,10 +152,10 @@ export default function App() {
                 </button>
               </div>
             </div>
-            {readList && (
+            {userList && (
               <Tab.Group>
                 <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-                  {Object.keys(readList).map((val) => (
+                  {Object.keys(userList).map((val) => (
                     <Tab
                       key={val}
                       className={({ selected }) =>
@@ -172,47 +173,37 @@ export default function App() {
                   ))}
                 </Tab.List>
                 <Tab.Panels className="mt-2">
-                  {Object.values(readList).map((users: User[], idx) => (
-                    <Tab.Panel
-                      key={idx}
-                      className={
-                        isLoading
-                          ? classNames(
-                            "rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2 animate-pulse"
-                          )
-                          : classNames(
-                            "rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-                          )
-                      }
-                    >
-                      <ul>
-                        {users.map((user) => (
-                          <div className="flex justify-between">
-                            <li
-                              key={user.id}
-                              className="relative rounded-md p-3"
-                            >
-                              <h3 className="text-sm font-medium leading-5">
-                                {user.nome}
-                              </h3>
-
-                              <ul className="mt-1 flex space-x-1 text-xs font-normal leading-4 text-gray-500">
-                                <li>{book.author}</li>
-                                <li>&middot;</li>
-                              </ul>
-                            </li>
-                            <button
-                              className="float-right bg-red-500 text-white rounded-md self-center text-xs p-2 mr-2"
-                              onClick={() => handleDelete(book.uuid!)}
-                            >
-                              Delete
-                            </button>
-                          </div>
-                        ))}
-                      </ul>
-                    </Tab.Panel>
-                  ))}
-                </Tab.Panels>
+  {userList && (
+    <Tab.Panel
+      className={
+        classNames(
+          isLoading ? "animate-pulse" : "",
+          "rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
+        )
+      }
+    >
+      <ul>
+        {userList.map((user) => (
+          <li key={user.id} className="relative rounded-md p-3">
+            <div className="flex justify-between">
+              <div>
+                <h3 className="text-sm font-medium leading-5">{user.nome}</h3>
+                <p className="mt-1 text-xs font-normal leading-4 text-gray-500">{user.email}</p>
+                {/* Outras informações do usuário */}
+              </div>
+              <button
+                onClick={() => handleDelete(user.id.toString())} // Assegure que handleDelete pode aceitar o ID como string
+                className="text-red-500 hover:text-red-700"
+              >
+                Delete
+              </button>
+            </div>
+          </li>
+        ))}
+      </ul>
+    </Tab.Panel>
+  )}
+</Tab.Panels>
               </Tab.Group>
             )}
             <AddUser isOpen={isAddItemOpen} setIsOpen={setIsAddItemOpen} />
