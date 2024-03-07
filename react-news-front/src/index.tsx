@@ -140,7 +140,6 @@ export default function App() {
         </div>
       </nav>
 
-      <div className="container px-4 mx-auto flex flex-col flex-grow">
         <div className="w-full max-w-lg mx-auto py-8">
           <div className="flex justify-between">
             <h1 className="text-4xl text-white font-bold">Newsletter Users</h1>
@@ -172,7 +171,6 @@ export default function App() {
             </div>
           )}
         </div>
-      </div>
     </div>
   );
 }
