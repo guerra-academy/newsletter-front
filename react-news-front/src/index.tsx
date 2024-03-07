@@ -3,10 +3,8 @@ import React, { useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
 import { getUsers } from "./api/users/get-users";
 import { User } from "./api/users/types/user";
-import groupBy from "lodash/groupBy";
 import AddUser from "./components/modal/fragments/add-user";
 import { deleteBooks } from "./api/users/delete-books";
-import { Dictionary } from "lodash";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { toast } from 'react-toastify';
 import LoginBox from './components/LoginBox';
@@ -65,8 +63,7 @@ export default function App() {
       setIsLoading(true);
       getUsers()
         .then((res) => {
-          // Simplesmente define a lista de usuários no estado, sem agrupá-los
-          setUserList(res.data); // Supondo que setUsersList é o método do useState para definir a lista de usuários
+          setUserList(res.data); // setUsersList é o método do useState para definir a lista de usuários
           setIsLoading(false);
         })
         .catch((e) => {
@@ -136,7 +133,7 @@ export default function App() {
         <div className="container px-4 mx-auto flex justify-center">
           <div className="w-full max-w-lg px-2 py-16 sm:px-0 mb-20">
             <div className="flex justify-between">
-              <p className="text-4xl text-white mb-3 font-bold">Reading List</p>
+              <p className="text-4xl text-white mb-3 font-bold">Newsletter Users</p>
               <div className="container w-auto">
                 <button
                   className="float-right bg-black bg-opacity-20 p-2 rounded-md text-sm my-3 font-medium text-white h-10"
@@ -189,7 +186,9 @@ export default function App() {
               <div>
                 <h3 className="text-sm font-medium leading-5">{user.nome}</h3>
                 <p className="mt-1 text-xs font-normal leading-4 text-gray-500">{user.email}</p>
-                {/* Outras informações do usuário */}
+                <p className="mt-1 text-xs font-normal leading-4 text-gray-500">{user.subscribed}</p>
+                <p className="mt-1 text-xs font-normal leading-4 text-gray-500">{user.data_hora}</p>
+                <p className="mt-1 text-xs font-normal leading-4 text-gray-500">{user.cod_rec}</p>
               </div>
               <button
                 onClick={() => handleDelete(user.id.toString())} // Assegure que handleDelete pode aceitar o ID como string
