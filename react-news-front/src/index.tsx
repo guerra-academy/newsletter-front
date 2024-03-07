@@ -1,4 +1,4 @@
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
 import { Tab } from "@headlessui/react";
 import { getUsers } from "./api/users/get-users";
@@ -6,15 +6,14 @@ import { User } from "./api/users/types/user";
 import AddUser from "./components/modal/fragments/add-user";
 import { deleteBooks } from "./api/users/delete-books";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
-import { toast } from 'react-toastify';
-import LoginBox from './components/LoginBox';
+import { toast } from "react-toastify";
+import LoginBox from "./components/LoginBox";
 
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function App() {
-
   const [userList, setUserList] = useState<User[] | null>(null);
   const [isAddItemOpen, setIsAddItemOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -23,11 +22,11 @@ export default function App() {
   const [user, setUser] = useState<any>(null);
 
   useEffect(() => {
-    if (Cookies.get('userinfo')) {
+    if (Cookies.get("userinfo")) {
       // We are here after a login
-      const userInfoCookie = Cookies.get('userinfo')
+      const userInfoCookie = Cookies.get("userinfo");
       sessionStorage.setItem("userInfo", userInfoCookie);
-      Cookies.remove('userinfo');
+      Cookies.remove("userinfo");
       var userInfo = JSON.parse(atob(userInfoCookie));
       setSignedIn(true);
       setUser(userInfo);
@@ -44,13 +43,23 @@ export default function App() {
 
   useEffect(() => {
     // Handle errors from Managed Authentication
-    const errorCode = new URLSearchParams(window.location.search).get('code');
-    const errorMessage = new URLSearchParams(window.location.search).get('message');
+    const errorCode = new URLSearchParams(window.location.search).get("code");
+    const errorMessage = new URLSearchParams(window.location.search).get(
+      "message"
+    );
     if (errorCode) {
-      toast.error(<>
-        <p className="text-[16px] font-bold text-slate-800">Something went wrong !</p>
-        <p className="text-[13px] text-slate-400 mt-1">Error Code : {errorCode}<br />Error Description: {errorMessage}</p>
-      </>);    
+      toast.error(
+        <>
+          <p className="text-[16px] font-bold text-slate-800">
+            Something went wrong !
+          </p>
+          <p className="text-[13px] text-slate-400 mt-1">
+            Error Code : {errorCode}
+            <br />
+            Error Description: {errorMessage}
+          </p>
+        </>
+      );
     }
   }, []);
 
@@ -120,7 +129,9 @@ export default function App() {
               className="float-right bg-[#5b86e5] p-2 rounded-md text-sm my-3 font-medium text-white"
               onClick={() => {
                 sessionStorage.removeItem("userInfo");
-                window.location.href = `/auth/logout?session_hint=${Cookies.get('session_hint')}`;
+                window.location.href = `/auth/logout?session_hint=${Cookies.get(
+                  "session_hint"
+                )}`;
               }}
             >
               Logout
@@ -129,86 +140,35 @@ export default function App() {
         </div>
       </nav>
 
-      <div className="py-3 md:py-6">
-        <div className="container px-4 mx-auto flex flex-grow justify-center">
-          <div className="w-full max-w-lg px-2 py-16 sm:px-0">
-            <div className="flex justify-between">
-              <p className="text-4xl text-white mb-3 font-bold">Newsletter Users</p>
-              <div className="container w-auto">
-                <button
-                  className="float-right bg-black bg-opacity-20 p-2 rounded-md text-sm my-3 font-medium text-white h-10"
-                  onClick={() => setIsAddItemOpen(true)}
-                >
-                  + Add New
-                </button>
-                <button
-                  className="float-right bg-black bg-opacity-20 p-2 rounded-md text-sm my-3 font-medium text-white w-10 h-10 mr-1"
-                  onClick={() => getUsersList()}
-                >
-                  <ArrowPathIcon />
-                </button>
-              </div>
+      <div className="container px-4 mx-auto flex flex-col flex-grow">
+  <div className="w-full max-w-lg mx-auto py-8">
+    <div className="flex justify-between">
+      <h1 className="text-4xl text-white font-bold">Newsletter Users</h1>
+      {/* Botões e outros elementos */}
+    </div>
+    {isLoading ? (
+      <p>Loading users...</p>
+    ) : (
+      <div className="users-list mt-4 bg-white rounded-xl p-3 overflow-auto">
+        {userList && userList.map((user) => (
+          <div key={user.id} className="user-item flex justify-between p-3 border-b border-gray-200">
+            <div>
+              <h3 className="text-sm font-medium">{user.nome}</h3>
+              <p className="text-xs text-gray-500">{user.email}</p>
+              {/* Outros detalhes do usuário */}
             </div>
-            {userList && (
-              <Tab.Group>
-                <Tab.List className="flex space-x-1 rounded-xl bg-blue-900/20 p-1">
-                  {Object.keys(userList).map((val) => (
-                    <Tab
-                      key={val}
-                      className={({ selected }) =>
-                        classNames(
-                          "w-full rounded-lg py-2.5 text-sm font-medium leading-5 text-blue-700",
-                          "ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2",
-                          selected
-                            ? "bg-white shadow"
-                            : "text-blue-100 hover:bg-white/[0.12] hover:text-white"
-                        )
-                      }
-                    >
-                      {val}
-                    </Tab>
-                  ))}
-                </Tab.List>
-                <Tab.Panels className="tab-panels">
-  {userList && (
-    <Tab.Panel
-      className={
-        classNames(
-          isLoading ? "animate-pulse" : "",
-          "rounded-xl bg-white p-3 ring-white ring-opacity-60 ring-offset-2 ring-offset-blue-400 focus:outline-none focus:ring-2"
-        )
-      }
-    >
-      <ul>
-        {userList.map((user) => (
-          <li key={user.id} className="relative rounded-md p-3">
-            <div className="flex justify-between">
-              <div>
-                <h3 className="text-sm font-medium leading-5">{user.nome}</h3>
-                <p className="mt-1 text-xs font-normal leading-4 text-gray-500">{user.email}</p>
-                <p className="mt-1 text-xs font-normal leading-4 text-gray-500">{user.subscribed}</p>
-                <p className="mt-1 text-xs font-normal leading-4 text-gray-500">{user.data_hora}</p>
-                <p className="mt-1 text-xs font-normal leading-4 text-gray-500">{user.cod_rec}</p>
-              </div>
-              <button
-                onClick={() => handleDelete(user.id.toString())} // Assegure que handleDelete pode aceitar o ID como string
-                className="text-red-500 hover:text-red-700"
-              >
-                Delete
-              </button>
-            </div>
-          </li>
-        ))}
-      </ul>
-    </Tab.Panel>
-  )}
-</Tab.Panels>
-</Tab.Group>
-            )}
-            <AddUser isOpen={isAddItemOpen} setIsOpen={setIsAddItemOpen} />
+            <button
+              onClick={() => handleDelete(user.id.toString())}
+              className="text-red-500 hover:text-red-700"
+            >
+              Delete
+            </button>
           </div>
-        </div>
+        ))}
       </div>
+    )}
+  </div>
+</div>
     </div>
   );
 }
