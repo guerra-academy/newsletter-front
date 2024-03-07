@@ -169,7 +169,7 @@ export default function App() {
                     </Tab>
                   ))}
                 </Tab.List>
-                <Tab.Panels className="mt-2">
+                <Tab.Panels className="tab-panels">
   {userList && (
     <Tab.Panel
       className={

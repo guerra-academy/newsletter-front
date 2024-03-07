@@ -17,3 +17,8 @@
   flex: 1; 
   overflow: auto;
 }
+
+.tab-panels {
+  min-height: 0; /* Override padrão do flexbox para garantir que o conteúdo possa expandir */
+  flex-grow: 1; /* Permite que o painel cresça e ocupe o espaço disponível */
+}
