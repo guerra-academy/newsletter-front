@@ -104,8 +104,8 @@ export default function App() {
   }
 
   return (
-    <div className="header-2 w-screen h-screen overflow-hidden">
-      <nav className="bg-white py-2 md:py-2">
+    <div className="container px-4 mx-auto flex flex-col flex-grow">
+      <nav className="w-full py-8">
         <div className="container px-4 mx-auto md:flex md:items-center">
           <div className="flex justify-between items-center">
             {user && (
@@ -149,7 +149,7 @@ export default function App() {
     {isLoading ? (
       <p>Loading users...</p>
     ) : (
-      <div className="users-list mt-4 bg-white rounded-xl p-3 overflow-auto">
+      <div className="user-list-container bg-white rounded-xl p-3">
         {userList && userList.map((user) => (
           <div key={user.id} className="user-item flex justify-between p-3 border-b border-gray-200">
             <div>

@@ -27,3 +27,17 @@
   flex-grow: 1; /* Permite que a lista de usuários cresça e preencha o espaço vertical */
   overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo exceder a altura */
 }
+
+.w-full {
+  width: 100%; /* Se não estiver já definido */
+}
+
+/* Para o contêiner da lista, substitua max-w-lg por max-w-full ou remova completamente */
+.mx-auto {
+  max-width: none; /* Ou max-width: 100%; se você quer que ele ocupe toda a largura */
+}
+
+.user-list-container {
+  flex-grow: 1; /* Isso permite que o contêiner cresça para preencher o espaço vertical */
+  overflow-y: auto; /* Isso permite rolagem vertical se o conteúdo for muito longo */
+}
