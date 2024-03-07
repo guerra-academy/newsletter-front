@@ -203,7 +203,7 @@ export default function App() {
     </Tab.Panel>
   )}
 </Tab.Panels>
-              </Tab.Group>
+</Tab.Group>
             )}
             <AddUser isOpen={isAddItemOpen} setIsOpen={setIsAddItemOpen} />
           </div>

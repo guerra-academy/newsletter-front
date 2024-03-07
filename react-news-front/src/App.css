@@ -1,7 +1,19 @@
 #root {
   height: 100vh;
   display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(to right, #36d1dc, #5b86e5);
+  
+  /*
+  conteudo antigo
+  height: 100vh;
+  display: flex;
   justify-content: center;
   align-items: center;
   background-image: linear-gradient(to right, #36d1dc, #5b86e5);
+  */
+}
+.header-2 {
+  flex: 1; 
+  overflow: auto;
 }
