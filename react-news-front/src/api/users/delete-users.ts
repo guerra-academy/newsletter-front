@@ -7,6 +7,6 @@ export async function deleteUsers(id: string) {
     method: 'DELETE',
   };
 
-  const response = await performRequestWithRetry(`${apiUrl}/${id}`, options);
+  const response = await performRequestWithRetry(`${apiUrl}/?id=${id}`, options);
   return response;
 }
