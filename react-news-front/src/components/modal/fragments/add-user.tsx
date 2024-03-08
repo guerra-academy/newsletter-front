@@ -1,5 +1,4 @@
 import React, { useState } from "react";
-// Supondo que você terá uma função semelhante para postar um usuário
 import { postUser } from "../../../api/users/post-users";
 import { User } from "../../../api/users/types/user";
 import Modal from "../modal";
@@ -26,7 +25,7 @@ export default function AddUser(props: AddUserProps) {
         data_hora: dataHora,
         email: email,
         gerou_cert: gerouCert,
-        id: 0, // Assumindo que o ID será gerado automaticamente pelo seu backend
+        id: 0,
         nome: nome,
         recaptcha: recaptcha,
         subscribed: subscribed,

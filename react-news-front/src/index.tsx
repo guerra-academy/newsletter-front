@@ -4,7 +4,7 @@ import { Tab } from "@headlessui/react";
 import { getUsers } from "./api/users/get-users";
 import { User } from "./api/users/types/user";
 import AddUser from "./components/modal/fragments/add-user";
-import { deleteBooks } from "./api/users/delete-books";
+import { deleteUsers } from "./api/users/delete-users";
 import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { toast } from "react-toastify";
 import LoginBox from "./components/LoginBox";
@@ -31,7 +31,7 @@ export default function App() {
       setSignedIn(true);
       setUser(userInfo);
     } else if (sessionStorage.getItem("userInfo")) {
-      // We have already logged in
+      
       var userInfo = JSON.parse(atob(sessionStorage.getItem("userInfo")!));
       setSignedIn(true);
       setUser(userInfo);
@@ -42,7 +42,6 @@ export default function App() {
   }, []);
 
   useEffect(() => {
-    // Handle errors from Managed Authentication
     const errorCode = new URLSearchParams(window.location.search).get("code");
     const errorMessage = new URLSearchParams(window.location.search).get(
       "message"
@@ -72,12 +71,12 @@ export default function App() {
       setIsLoading(true);
       getUsers()
         .then((res) => {
-          setUserList(res.data); // setUsersList é o método do useState para definir a lista de usuários
+          setUserList(res.data);
           setIsLoading(false);
         })
         .catch((e) => {
-          console.error(e); // Melhor usar console.error para erros
-          setIsLoading(false); // Garante que o estado de loading seja atualizado mesmo em caso de erro
+          console.error(e); 
+          setIsLoading(false);
         });
     }
   }
@@ -90,7 +89,7 @@ export default function App() {
 
   const handleDelete = async (id: string) => {
     setIsLoading(true);
-    await deleteBooks(id);
+    await deleteUsers(id);
     getUsersList();
     setIsLoading(false);
   };

@@ -3,15 +3,7 @@
   display: flex;
   flex-direction: column;
   background-image: linear-gradient(to right, #36d1dc, #5b86e5);
-  
-  /*
-  conteudo antigo
-  height: 100vh;
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  background-image: linear-gradient(to right, #36d1dc, #5b86e5);
-  */
+
 }
 .header-2 {
   flex: 1; 
@@ -20,25 +12,24 @@
 }
 
 .tab-panels {
-  min-height: 0; /* Override padrão do flexbox para garantir que o conteúdo possa expandir */
-  flex-grow: 1; /* Permite que o painel cresça e ocupe o espaço disponível */
+  min-height: 0; 
+  flex-grow: 1; 
 }
 
 .users-list {
-  flex-grow: 1; /* Permite que a lista de usuários cresça e preencha o espaço vertical */
-  overflow-y: auto; /* Adiciona barra de rolagem se o conteúdo exceder a altura */
+  flex-grow: 1; 
+  overflow-y: auto;
 }
 
 .w-full {
-  width: 100%; /* Se não estiver já definido */
+  width: 100%; 
 }
 
-/* Para o contêiner da lista, substitua max-w-lg por max-w-full ou remova completamente */
 .mx-auto {
-  max-width: none; /* Ou max-width: 100%; se você quer que ele ocupe toda a largura */
+  max-width: none;
 }
 
 .user-list-container {
-  flex-grow: 1; /* Isso permite que o contêiner cresça para preencher o espaço vertical */
-  overflow-y: auto; /* Isso permite rolagem vertical se o conteúdo for muito longo */
+  flex-grow: 1;
+  overflow-y: auto;
 }
