@@ -1,22 +1,21 @@
 import Cookies from "js-cookie";
 import React, { useEffect, useState } from "react";
-import { Tab } from "@headlessui/react";
 import { getUsers } from "./api/users/get-users";
 import { User } from "./api/users/types/user";
-import AddUser from "./components/modal/fragments/add-user";
-import { deleteUsers } from "./api/users/delete-users";
-import { ArrowPathIcon } from "@heroicons/react/24/solid";
 import { toast } from "react-toastify";
 import LoginBox from "./components/LoginBox";
-
+import { AppBar, Toolbar, Typography, IconButton } from '@mui/material';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import CssBaseline from '@mui/material/CssBaseline';
+import Sidebar from './components/Sidebar.tsx';
+import UserList from './components/Users.tsx';
+import News from './components/Newsletter.tsx';
+import './App.css';
 export function classNames(...classes: string[]) {
   return classes.filter(Boolean).join(" ");
 }
 
 export default function App() {
-  const [userList, setUserList] = useState<User[] | null>(null);
-  const [isAddItemOpen, setIsAddItemOpen] = useState(false);
-  const [isLoading, setIsLoading] = useState(false);
   const [isAuthLoading, setIsAuthLoading] = useState(true);
   const [signedIn, setSignedIn] = useState(false);
   const [user, setUser] = useState<any>(null);
@@ -62,38 +61,6 @@ export default function App() {
     }
   }, []);
 
-  useEffect(() => {
-    getUsersList();
-  }, [signedIn]);
-
-  async function getUsersList() {
-    if (signedIn) {
-      setIsLoading(true);
-      getUsers()
-        .then((res) => {
-          setUserList(res.data);
-          setIsLoading(false);
-        })
-        .catch((e) => {
-          console.error(e); 
-          setIsLoading(false);
-        });
-    }
-  }
-
-  useEffect(() => {
-    if (!isAddItemOpen) {
-      getUsersList();
-    }
-  }, [isAddItemOpen]);
-
-  const handleDelete = async (id: string) => {
-    setIsLoading(true);
-    await deleteUsers(id);
-    getUsersList();
-    setIsLoading(false);
-  };
-
   if (isAuthLoading) {
     return <div className="animate-spin h-5 w-5 text-white">.</div>;
   }
@@ -103,73 +70,55 @@ export default function App() {
   }
 
   return (
-    <div className="header-2 w-screen min-h-screen">
-      <nav className="w-full py-8">
-        <div className="container px-4 mx-auto md:flex md:items-center">
-          <div className="flex justify-between items-center">
-            {user && (
-              <a href="#" className="font-bold text-xl text-[#36d1dc]">
-                {user?.org_name}
-              </a>
-            )}
-            <button
-              className="border border-solid border-gray-600 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden"
-              id="navbar-toggle"
-            >
-              <i className="fas fa-bars"></i>
-            </button>
-          </div>
+    <Router>
+      <CssBaseline />
+      <div className="container">
+        <div className="sidebar">
+          <Sidebar />
+        </div>
+        <div className="content">
+          <AppBar position="static" className="header">
+            <Toolbar>
+              {/* Adicione sua logo aqui */}
+              <img src="/images/logo.png" alt="Logo da Sua Empresa" className="logo" />
 
-          <div
-            className="hidden md:flex flex-col md:flex-row md:ml-auto mt-3 md:mt-0"
-            id="navbar-collapse"
-          >
-            <button
-              className="float-right bg-[#5b86e5] p-2 rounded-md text-sm my-3 font-medium text-white"
+              {/* Título da aplicação */}
+              <Typography variant="h6" component="div" sx={{ flexGrow: 1 }}>
+                Guerra Academy - Newsletter
+              </Typography>
+
+              <div className="flex justify-between items-center">
+                {user && (
+                  <a href="#" className="font-bold text-xl text-[#36d1dc]">
+                    {user?.org_name}
+                  </a>
+                )}
+                <button
+                  className="border border-solid border-gray-600 px-3 py-1 rounded text-gray-600 opacity-50 hover:opacity-75 md:hidden"
+                  id="navbar-toggle"
+                >
+                  <i className="fas fa-bars"></i>
+                </button>
+              </div>
+              
+              {/* Botão de logout */}
+              <IconButton color="inherit" 
               onClick={() => {
                 sessionStorage.removeItem("userInfo");
-                window.location.href = `/auth/logout?session_hint=${Cookies.get(
-                  "session_hint"
-                )}`;
-              }}
-            >
-              Logout
-            </button>
+                window.location.href = `/auth/logout?session_hint=${Cookies.get('session_hint')}`;
+              }}>
+                <img src="/images/logout.png" alt="Logout" className="logout-icon" />
+              </IconButton>
+            </Toolbar>
+          </AppBar>
+          <div className="main-content">
+            <Routes>
+              <Route path="/users" element={<UserList />} />
+              <Route path="newsletter" element={<News />} />
+            </Routes>
           </div>
         </div>
-      </nav>
-
-        <div className="w-full max-w-lg mx-auto py-8">
-          <div className="flex justify-between">
-            <h1 className="text-4xl text-white font-bold">Newsletter Users</h1>
-            {/* Botões e outros elementos */}
-          </div>
-          {isLoading ? (
-            <p>Loading users...</p>
-          ) : (
-            <div className="user-list-container bg-white">
-              {userList &&
-                userList.map((user) => (
-                  <div
-                    key={user.id}
-                    className="user-item flex justify-between p-3 border-b border-gray-200"
-                  >
-                    <div>
-                      <h3 className="text-sm font-medium">{user.nome}</h3>
-                      <p className="text-xs text-gray-500">{user.email}</p>
-                      {/* Outros detalhes do usuário */}
-                    </div>
-                    <button
-                      onClick={() => handleDelete(user.id.toString())}
-                      className="text-red-500 hover:text-red-700"
-                    >
-                      Delete
-                    </button>
-                  </div>
-                ))}
-            </div>
-          )}
-        </div>
-    </div>
+      </div>
+    </Router>
   );
 }
