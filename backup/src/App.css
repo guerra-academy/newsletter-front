@@ -1,0 +1,35 @@
+#root{
+  height: 100vh;
+  display: flex;
+  flex-direction: column;
+  background-image: linear-gradient(to right, #36d1dc, #5b86e5);
+
+}
+.header-2 {
+  flex: 1; 
+  overflow: auto;
+  height: 100vh;
+}
+
+.tab-panels {
+  min-height: 0; 
+  flex-grow: 1; 
+}
+
+.users-list {
+  flex-grow: 1; 
+  overflow-y: auto;
+}
+
+.w-full {
+  width: 100%; 
+}
+
+.mx-auto {
+  max-width: none;
+}
+
+.user-list-container {
+  flex-grow: 1;
+  overflow-y: auto;
+}

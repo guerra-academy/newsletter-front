@@ -1,5 +1,5 @@
-import { apiUrl } from "./constants.ts";
-import { performRequestWithRetry } from "./retry.ts";
+import { apiUrl } from "./constants";
+import { performRequestWithRetry } from "../retry";
 
 
 export async function deleteUsers(id: string) {
